@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Светлана Дубовик](https://up.htmlacademy.ru/javascript/10/user/230066).
-* Наставник: `Неизвестно`.
+* Наставник: [Лариса Клец]`.
 
 ---
 
