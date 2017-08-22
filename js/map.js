@@ -103,15 +103,15 @@ var adObjects = generateAdObjects(AD_COUNT);
 var generateMarkerLayout = function (x, y, avatar) {
   var widthHeight = 40;
   var divBlock = document.createElement('div');    
-  var pic = document. createElement('img');
+  var pic = document.createElement('img');
   pic.src = '' + avatar;
   pic.className = 'rounded';
   pic.width = widthHeight;
   pic.height = widthHeight;
   pic.setAttribute('alt', '');
   divBlock.className = 'pin';
-  divBlock.style.left = x - pic.width / 2 +'px';
-  divBlock.style.top = y - pic.height +'px';
+  divBlock.style.left = x - pic.width / 2 + 'px';
+  divBlock.style.top = y - pic.height + 'px';
   divBlock.appendChild(pic);
   return divBlock;
 };
@@ -143,12 +143,10 @@ var showAd = function (k) {
   for (var i = 0; i < length; i++) {
     span = '';
     span = document.createElement('span');
-    span.className ='feature__image feature__image--' + adObjects[k].offer.features[i];
+    span.className = 'feature__image feature__image--' + adObjects[k].offer.features[i];
     element.querySelector('.lodge__features').appendChild(span);
-  }
-    
+  }    
   element.querySelector('.lodge__description').textContent = adObjects[k].offer.description;
-
   var offerDialog = document.querySelector('#offer-dialog');
   var dialogPanel = offerDialog.querySelector('.dialog__panel');
   offerDialog.replaceChild(element, dialogPanel);
@@ -158,3 +156,4 @@ var showAd = function (k) {
 };
 
 showAd(0);
+
