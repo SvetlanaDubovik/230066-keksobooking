@@ -40,7 +40,7 @@ var generateLocations = function (k) {
   var xy = '';
 
   while (loc.length < k) {
-    xy = generateRandomNumber(300, 900) + '+' + generateRandomNumber(100, 500);
+    xy = generateRandomNumber(320, 920) + '+' + generateRandomNumber(160, 560);
     if (loc.indexOf(xy) === -1) {
       loc.push(xy);
     }
