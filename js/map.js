@@ -102,7 +102,7 @@ var adObjects = generateAdObjects(AD_COUNT);
 //  создание DOM-элементов
 var generateMarkerLayout = function (x, y, avatar) {
   var widthHeight = 40;
-  var divBlock = document.createElement('div');    
+  var divBlock = document.createElement('div');
   var pic = document.createElement('img');
   pic.src = '' + avatar;
   pic.className = 'rounded';
@@ -145,7 +145,7 @@ var showAd = function (k) {
     span = document.createElement('span');
     span.className = 'feature__image feature__image--' + adObjects[k].offer.features[i];
     element.querySelector('.lodge__features').appendChild(span);
-  }    
+  }
   element.querySelector('.lodge__description').textContent = adObjects[k].offer.description;
   var offerDialog = document.querySelector('#offer-dialog');
   var dialogPanel = offerDialog.querySelector('.dialog__panel');
