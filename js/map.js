@@ -169,6 +169,7 @@ var getAdObjectsNumber = function (str) {
       return i;
     }
   }
+  return false;
 };
 
 var deleteActiveClass = function (cl) {
@@ -188,7 +189,7 @@ var clickPinHandler = function (evt) {
       var num = getAdObjectsNumber(source);
       openAd(num);
     }
-  target = target.parentNode;
+    target = target.parentNode;
   }
 };
 
@@ -214,7 +215,7 @@ offerDialog.addEventListener('click', function (evt) {
     if (target.className === 'dialog__close') {
       closeAd();
     }
-  target = target.parentNode;
+    target = target.parentNode;
   }
 });
 
