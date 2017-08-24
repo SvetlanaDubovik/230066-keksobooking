@@ -44,7 +44,7 @@ var generateLocations = function (k) {
   var loc = [];
   var xy = '';
   while (loc.length < k) {
-    xy = generateRandomNumber(320, 920) + '
+    xy = generateRandomNumber(320, 920) + '+' +
     generateRandomNumber(160, 560);
     if (loc.indexOf(xy) === -1) {
       loc.push(xy);
