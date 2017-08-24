@@ -151,7 +151,6 @@ var openAd = function (k) {
     span.className = 'feature__image feature__image--' + adObjects[k].offer.features[i];
     element.querySelector('.lodge__features').appendChild(span);
   }
-  
   element.querySelector('.lodge__description').textContent = adObjects[k].offer.description;
   offerDialog.classList.remove('hidden');
 
@@ -170,7 +169,6 @@ var getAdObjectsNumber = function (str) {
       return i;
     }
   }
-  return;
 };
 
 var deleteActiveClass = function (cl) {
