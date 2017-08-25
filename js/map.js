@@ -164,7 +164,6 @@ var openAd = function (k) {
 openAd(0);
 
 var getAdObjectsNumber = function (str) {
-  var number = null;
   for (var i = 0; i < adObjects.length; i++) {
     if (str === adObjects[i].author.avatar) {
       return i;
@@ -196,8 +195,8 @@ var pinClickHandler = function (evt) {
         var source = target.firstElementChild.getAttribute('src');
         var num = getAdObjectsNumber(source);
         if (num !== false) {
-        openAd(num);
-        } 
+          openAd(num);
+        }
       }
       target = target.parentNode;
     }
