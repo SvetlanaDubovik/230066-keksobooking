@@ -176,8 +176,6 @@ var deleteActiveClass = function () {
   var pinActive = document.querySelector('.pin--active');
   if (pinActive) {
     pinActive.classList.remove('pin--active');
-  } else {
-    return false;
   }
 };
 
@@ -201,7 +199,7 @@ var pinClickHandler = function (evt) {
       target = target.parentNode;
     }
     document.addEventListener('keydown', dialogCloseHandler);
-  } 
+  }
 };
 
 var closeAd = function () {
@@ -214,8 +212,8 @@ tokyoPinMap.addEventListener('click', function (evt) {
   pinClickHandler(evt);
 });
 
-tokyoPinMap.addEventListener('keydown', function (evt) {  
-    pinClickHandler(evt);      
+tokyoPinMap.addEventListener('keydown', function (evt) {
+  pinClickHandler(evt);
 });
 
 offerDialog.addEventListener('click', function (evt) {
