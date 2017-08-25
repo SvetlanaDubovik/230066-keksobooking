@@ -10,7 +10,7 @@ var TYPE_VALUES_OBJ = {
 var CHEK_IN_OUT_VALUES = ['12.00', '13.00', '14.00'];
 var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
-var AD_COUNT = 8;
+var AD_COUNT = 1;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
 
@@ -167,10 +167,10 @@ var getAdObjectsNumber = function (str) {
   var number = null;
   for (var i = 0; i < adObjects.length; i++) {
     if (str === adObjects[i].author.avatar) {
-      number = i;
+      return i;
     }
   }
-  return number;
+  return false;
 };
 
 var deleteActiveClass = function () {
@@ -195,7 +195,9 @@ var pinClickHandler = function (evt) {
         target.classList.add('pin--active');
         var source = target.firstElementChild.getAttribute('src');
         var num = getAdObjectsNumber(source);
+        if (num !== false) {
         openAd(num);
+        } 
       }
       target = target.parentNode;
     }
