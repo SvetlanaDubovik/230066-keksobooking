@@ -174,41 +174,39 @@ var getAdObjectsNumber = function (str) {
 
 var deleteActiveClass = function () {
   var pinActive = document.querySelector('.pin--active');
-  if(pinActive) {
+  if (pinActive) {
     pinActive.classList.remove('pin--active');
   } else {
     return false;
   }
 };
 
-var dialogCloseHandler = function(evt) {
+var dialogCloseHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeAd();
-  }  
+  }
 };
 
 var pinClickHandler = function (evt) {
-  if(evt.keyCode === ENTER_KEYCODE || evt.type === 'click') {
-  deleteActiveClass('.pin'); 
-  var target = evt.target;
-  while (target !== tokyoPinMap) {
-    if (target.className === 'pin') {
-      target.classList.add('pin--active');
-      var source = target.firstElementChild.getAttribute('src');
-      var num = getAdObjectsNumber(source);
-      openAd(num);
+  if (evt.keyCode === ENTER_KEYCODE || evt.type === 'click') {
+    deleteActiveClass();
+    var target = evt.target;
+    while (target !== tokyoPinMap) {
+      if (target.className === 'pin') {
+        target.classList.add('pin--active');
+        var source = target.firstElementChild.getAttribute('src');
+        var num = getAdObjectsNumber(source);
+        openAd(num);
+      }
+      target = target.parentNode;
     }
-    target = target.parentNode;
-  }
-  document.addEventListener('keydown', dialogCloseHandler); 
-  } else {
-    return false;
-  }
+    document.addEventListener('keydown', dialogCloseHandler);
+  } 
 };
 
 var closeAd = function () {
   offerDialog.classList.add('hidden');
-  deleteActiveClass('.pin');
+  deleteActiveClass();
   document.removeEventListener('keydown', dialogCloseHandler);
 };
 
