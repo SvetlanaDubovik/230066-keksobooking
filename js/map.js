@@ -10,7 +10,12 @@ var TYPE_VALUES_OBJ = {
 var CHEK_IN_OUT_VALUES = ['12.00', '13.00', '14.00'];
 var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
-var AD_COUNT = 8;
+var AD_COUNT = 1;
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var offerDialog = document.querySelector('#offer-dialog');
+var tokyoPinMap = document.querySelector('.tokyo__pin-map');
 
 var generateRandomNumber = function (min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -38,9 +43,9 @@ var avatarAddressMix = mixArray(AVATAR_ADDRESS, true);
 var generateLocations = function (k) {
   var loc = [];
   var xy = '';
-
   while (loc.length < k) {
-    xy = generateRandomNumber(320, 920) + '+' + generateRandomNumber(160, 560);
+    xy = generateRandomNumber(320, 920) + '+' +
+    generateRandomNumber(160, 560);
     if (loc.indexOf(xy) === -1) {
       loc.push(xy);
     }
@@ -110,6 +115,7 @@ var generateMarkerLayout = function (x, y, avatar) {
   pic.height = widthHeight;
   pic.setAttribute('alt', '');
   divBlock.className = 'pin';
+  divBlock.setAttribute('tabIndex', 0);
   divBlock.style.left = x - pic.width / 2 + 'px';
   divBlock.style.top = y - pic.height + 'px';
   divBlock.appendChild(pic);
@@ -118,7 +124,6 @@ var generateMarkerLayout = function (x, y, avatar) {
 
 //  вывод объектов на карту
 var showMarkers = function (arrObj) {
-  var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < arrObj.length; i++) {
     fragment.appendChild(generateMarkerLayout(arrObj[i].location.x, arrObj[i].location.y, arrObj[i].author.avatar));
@@ -128,7 +133,7 @@ var showMarkers = function (arrObj) {
 
 showMarkers(adObjects);
 
-var showAd = function (k) {
+var openAd = function (k) {
   var template = document.querySelector('#lodge-template');
   var element = template.content.querySelector('.dialog__panel').cloneNode(true);
   element.querySelector('.lodge__title').textContent = adObjects[k].offer.title;
@@ -147,7 +152,8 @@ var showAd = function (k) {
     element.querySelector('.lodge__features').appendChild(span);
   }
   element.querySelector('.lodge__description').textContent = adObjects[k].offer.description;
-  var offerDialog = document.querySelector('#offer-dialog');
+  offerDialog.classList.remove('hidden');
+
   var dialogPanel = offerDialog.querySelector('.dialog__panel');
   offerDialog.replaceChild(element, dialogPanel);
 
@@ -155,5 +161,69 @@ var showAd = function (k) {
   dialogTitle.children[0].setAttribute('src', adObjects[k].author.avatar);
 };
 
-showAd(0);
+openAd(0);
 
+var getAdObjectsNumber = function (str) {
+  for (var i = 0; i < adObjects.length; i++) {
+    if (str === adObjects[i].author.avatar) {
+      return i;
+    }
+  }
+  return false;
+};
+
+var deleteActiveClass = function () {
+  var pinActive = document.querySelector('.pin--active');
+  if (pinActive) {
+    pinActive.classList.remove('pin--active');
+  }
+};
+
+var dialogCloseHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeAd();
+  }
+};
+
+var pinClickHandler = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE || evt.type === 'click') {
+    deleteActiveClass();
+    var target = evt.target;
+    while (target !== tokyoPinMap) {
+      if (target.className === 'pin') {
+        target.classList.add('pin--active');
+        var source = target.firstElementChild.getAttribute('src');
+        var num = getAdObjectsNumber(source);
+        if (num !== false) {
+          openAd(num);
+        }
+      }
+      target = target.parentNode;
+    }
+    document.addEventListener('keydown', dialogCloseHandler);
+  }
+};
+
+var closeAd = function () {
+  offerDialog.classList.add('hidden');
+  deleteActiveClass();
+  document.removeEventListener('keydown', dialogCloseHandler);
+};
+
+tokyoPinMap.addEventListener('click', function (evt) {
+  pinClickHandler(evt);
+});
+
+tokyoPinMap.addEventListener('keydown', function (evt) {
+  pinClickHandler(evt);
+});
+
+offerDialog.addEventListener('click', function (evt) {
+  var target = evt.target;
+  while (target !== offerDialog) {
+    if (target.className === 'dialog__close') {
+      closeAd();
+    }
+    target = target.parentNode;
+  }
+});
