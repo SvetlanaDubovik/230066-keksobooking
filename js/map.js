@@ -172,15 +172,24 @@ var getAdObjectsNumber = function (str) {
   return false;
 };
 
-var deleteActiveClass = function (cl) {
-  var elements = document.querySelectorAll(cl);
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('pin--active');
+var deleteActiveClass = function () {
+  var pinActive = document.querySelector('.pin--active');
+  if(pinActive) {
+    pinActive.classList.remove('pin--active');
+  } else {
+    return false;
   }
 };
 
-var clickPinHandler = function (evt) {
-  deleteActiveClass('.pin');
+var dialogCloseHandler = function(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeAd();
+  }  
+};
+
+var pinClickHandler = function (evt) {
+  if(evt.keyCode === ENTER_KEYCODE || evt.type === 'click') {
+  deleteActiveClass('.pin'); 
   var target = evt.target;
   while (target !== tokyoPinMap) {
     if (target.className === 'pin') {
@@ -191,23 +200,25 @@ var clickPinHandler = function (evt) {
     }
     target = target.parentNode;
   }
-};
-
-tokyoPinMap.addEventListener('click', function (evt) {
-  deleteActiveClass('.pin');
-  clickPinHandler(evt);
-});
-
-tokyoPinMap.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    clickPinHandler(evt);
+  document.addEventListener('keydown', dialogCloseHandler); 
+  } else {
+    return false;
   }
-});
+};
 
 var closeAd = function () {
   offerDialog.classList.add('hidden');
   deleteActiveClass('.pin');
+  document.removeEventListener('keydown', dialogCloseHandler);
 };
+
+tokyoPinMap.addEventListener('click', function (evt) {
+  pinClickHandler(evt);
+});
+
+tokyoPinMap.addEventListener('keydown', function (evt) {  
+    pinClickHandler(evt);      
+});
 
 offerDialog.addEventListener('click', function (evt) {
   var target = evt.target;
@@ -216,11 +227,5 @@ offerDialog.addEventListener('click', function (evt) {
       closeAd();
     }
     target = target.parentNode;
-  }
-});
-
-document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closeAd();
   }
 });
