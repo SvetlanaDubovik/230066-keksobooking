@@ -258,43 +258,43 @@ var removeDisabledAttribute = function () {
 };
 
 var isCorrespondRoomToCapacity = function () {
-  switch (roomNumberOptions.selectedIndex){
+  switch (roomNumberOptions.selectedIndex) {
     // 1 комната
     case 0:
-     removeDisabledAttribute();
-     for (var i = 0; i < capacityOptionsLength; i++) {
-       if (capacityOptions[i].value !== '1') {
-        capacityOptions[i].setAttribute('disabled', 'disabled');
-       }
-     }
-    capacityOptions.selectedIndex = 2;
-    break;
-  // 2 комнаты
-  case 1:
-    removeDisabledAttribute();
-    for (var i = 0; i < capacityOptionsLength; i++) {
-      if (capacityOptions[i].value > 2 || capacityOptions[i].value === '0') {
-        capacityOptions[i].setAttribute('disabled', 'disabled');
+      removeDisabledAttribute();
+      for (var i = 0; i < capacityOptionsLength; i++) {
+        if (capacityOptions[i].value !== '1') {
+          capacityOptions[i].setAttribute('disabled', 'disabled');
+        }
       }
-    }
-    capacityOptions.selectedIndex = 2;
-    break;
-  // 3 комнаты
-  case 2:
-    removeDisabledAttribute();
-    capacityOptions[3].setAttribute('disabled', 'disabled');
-    capacityOptions.selectedIndex = 2;
-    break;
-  // 100 комнат
-  case 3:
-    removeDisabledAttribute();
-    for (var i = 0; i < capacityOptionsLength; i++ ) {
-      if (capacityOptions[i].value !== '0') {
-        capacityOptions[i].setAttribute('disabled', 'disabled');
+      capacityOptions.selectedIndex = 2;
+      break;
+    // 2 комнаты
+    case 1:
+      removeDisabledAttribute();
+      for (var i = 0; i < capacityOptionsLength; i++) {
+        if (capacityOptions[i].value > 2 || capacityOptions[i].value === '0') {
+          capacityOptions[i].setAttribute('disabled', 'disabled');
+        }
       }
-    }
-    capacityOptions.selectedIndex = 3;
-    break;
+      capacityOptions.selectedIndex = 2;
+      break;
+    // 3 комнаты
+    case 2:
+      removeDisabledAttribute();
+      capacityOptions[3].setAttribute('disabled', 'disabled');
+      capacityOptions.selectedIndex = 2;
+      break;
+    // 100 комнат
+    case 3:
+      removeDisabledAttribute();
+      for (var i = 0; i < capacityOptionsLength; i++) {
+        if (capacityOptions[i].value !== '0') {
+          capacityOptions[i].setAttribute('disabled', 'disabled');
+        }
+      }
+      capacityOptions.selectedIndex = 3;
+      break;
   }
 };
 
