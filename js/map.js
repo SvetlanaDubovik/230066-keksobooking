@@ -272,7 +272,7 @@ var isCorrespondRoomToCapacity = function () {
     // 2 комнаты
     case 1:
       removeDisabledAttribute();
-      for (var i = 0; i < capacityOptionsLength; i++) {
+      for (i = 0; i < capacityOptionsLength; i++) {
         if (capacityOptions[i].value > 2 || capacityOptions[i].value === '0') {
           capacityOptions[i].setAttribute('disabled', 'disabled');
         }
@@ -288,7 +288,7 @@ var isCorrespondRoomToCapacity = function () {
     // 100 комнат
     case 3:
       removeDisabledAttribute();
-      for (var i = 0; i < capacityOptionsLength; i++) {
+      for (i = 0; i < capacityOptionsLength; i++) {
         if (capacityOptions[i].value !== '0') {
           capacityOptions[i].setAttribute('disabled', 'disabled');
         }
