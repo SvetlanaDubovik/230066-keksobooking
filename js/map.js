@@ -10,9 +10,10 @@ var TYPE_VALUES_OBJ = {
 var CHEK_IN_OUT_VALUES = ['12.00', '13.00', '14.00'];
 var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
-var AD_COUNT = 1;
+var AD_COUNT = 8;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
+var MIN_PRICE = [0, 1000, 5000, 10000];
 
 var offerDialog = document.querySelector('#offer-dialog');
 var tokyoPinMap = document.querySelector('.tokyo__pin-map');
@@ -169,7 +170,7 @@ var getAdObjectsNumber = function (str) {
       return i;
     }
   }
-  return false;
+  return -1;
 };
 
 var deleteActiveClass = function () {
@@ -194,7 +195,7 @@ var pinClickHandler = function (evt) {
         target.classList.add('pin--active');
         var source = target.firstElementChild.getAttribute('src');
         var num = getAdObjectsNumber(source);
-        if (num !== false) {
+        if (num !== -1) {
           openAd(num);
         }
       }
@@ -226,4 +227,118 @@ offerDialog.addEventListener('click', function (evt) {
     }
     target = target.parentNode;
   }
+});
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+var doSameSelectValue = function(select1, select2) {
+  var selectOption = select1.options.selectedIndex;
+  select2.options.selectedIndex = selectOption;
+};
+
+timeIn.addEventListener('change', function() {
+  doSameSelectValue(timeIn, timeOut);
+});
+
+timeOut.addEventListener('change', function() {
+    doSameSelectValue(timeOut, timeIn);
+});
+
+
+
+var roomNumber = document.querySelector('#room_number');
+var roomNumberOptions = roomNumber.options;
+var capacity = document.querySelector('#capacity');
+var capacityOptions = capacity.options;
+var capacityOptionsLength = capacityOptions.length;
+
+var removeDisabledAttribute = function() {
+  for (var i = 0; i < capacityOptionsLength; i++) {
+    capacityOptions[i].removeAttribute('disabled');
+  }
+};
+
+var isCorrespondRoomToCapacity = function() {
+switch(roomNumberOptions.selectedIndex){
+    // 1 комната
+    case 0:
+    removeDisabledAttribute();
+    for (var i = 0; i < capacityOptionsLength; i++ ) {
+      if (capacityOptions[i].value !== '1') {
+        capacityOptions[i].setAttribute('disabled', 'disabled');
+      }
+    }
+    capacityOptions.selectedIndex = 2;
+    break;
+    // 2 комнаты
+  case 1:
+    removeDisabledAttribute();
+    for (var i = 0; i < capacityOptionsLength; i++ ) {
+      if (capacityOptions[i].value > 2 || capacityOptions[i].value === '0') {
+        capacityOptions[i].setAttribute('disabled', 'disabled');
+      }
+    }
+    capacityOptions.selectedIndex = 2;
+    break;
+    // 3 комнаты
+  case 2:
+    removeDisabledAttribute();
+    capacityOptions[3].setAttribute('disabled', 'disabled');
+    capacityOptions.selectedIndex = 2;
+    break;  
+    // 100 комнат
+  case 3:
+    removeDisabledAttribute();
+    for (var i = 0; i < capacityOptionsLength; i++ ) {
+      if (capacityOptions[i].value !== '0') {
+        capacityOptions[i].setAttribute('disabled', 'disabled');
+      }
+    }
+     capacityOptions.selectedIndex = 3;
+    break;
+  }
+};
+
+roomNumber.addEventListener('change', function() {
+  isCorrespondRoomToCapacity();
+});
+
+window.addEventListener('load', function() {
+  isCorrespondRoomToCapacity();
+});
+
+var houseType = document.querySelector('#type');
+var houseTypeOptions = houseType.options;
+var price = document.querySelector('#price');
+
+var checkMinPrice = function(value) {
+  if (value > 1000) {
+    price.setAttribute('value', value);
+  } 
+};
+
+var isCorrespondTypeToPrice = function() {
+  switch(houseTypeOptions.selectedIndex) {
+    case 0:
+      price.setAttribute('min', '1000');
+      checkMinPrice(1000);
+      break;
+    case 1:
+      price.setAttribute('min', '0');
+      checkMinPrice(0);
+      break;
+    case 2:
+      price.setAttribute('min', '5000');
+      checkMinPrice(5000);
+      break;
+    case 3:
+      price.setAttribute('min', '10000');
+      checkMinPrice(10000);
+      break;
+  }
+};
+
+houseType.addEventListener('change', function() {
+  isCorrespondTypeToPrice();
 });
