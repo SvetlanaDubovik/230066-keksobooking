@@ -311,7 +311,7 @@ var houseTypeOptions = houseType.options;
 var price = document.querySelector('#price');
 
 var checkMinPrice = function (val) {
-    price.value = val;
+  price.value = val;
 };
 
 var isCorrespondTypeToPrice = function () {
