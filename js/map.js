@@ -277,13 +277,13 @@ var isCorrespondRoomToCapacity = function () {
           capacityOptions[i].setAttribute('disabled', 'disabled');
         }
       }
-      capacityOptions.selectedIndex = 2;
+      capacityOptions.selectedIndex = 1;
       break;
     // 3 комнаты
     case 2:
       removeDisabledAttribute();
       capacityOptions[3].setAttribute('disabled', 'disabled');
-      capacityOptions.selectedIndex = 2;
+      capacityOptions.selectedIndex = 0;
       break;
     // 100 комнат
     case 3:
@@ -310,10 +310,8 @@ var houseType = document.querySelector('#type');
 var houseTypeOptions = houseType.options;
 var price = document.querySelector('#price');
 
-var checkMinPrice = function (value) {
-  if (+value > 1000) {
-    price.setAttribute('value', value);
-  }
+var checkMinPrice = function (val) {
+    price.value = val;
 };
 
 var isCorrespondTypeToPrice = function () {
