@@ -2,9 +2,9 @@
 (function () {
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var adObjects = window.data.adObjs;
- 
+
   window.pin = {
-    generateMarkerLayout:  function (x, y, avatar) {
+    generateMarkerLayout: function (x, y, avatar) {
       var widthHeight = 40;
       var divBlock = document.createElement('div');
       var pic = document.createElement('img');
@@ -20,14 +20,14 @@
       divBlock.appendChild(pic);
       return divBlock;
     },
-    deleteActiveClass : function () {
+    deleteActiveClass: function () {
       var pinActive = tokyoPinMap.querySelector('.pin--active');
       if (pinActive) {
         pinActive.classList.remove('pin--active');
       }
     }
   };
-  
+ 
   var getAdObjectsNumber = function (str) {
     for (var i = 0; i < adObjects.length; i++) {
       if (str === adObjects[i].author.avatar) {
@@ -36,7 +36,7 @@
     }
     return -1;
   };
-  
+
   var pinClickHandler = function (evt) {
     if (evt.keyCode === window.card.ENTER_KEYCODE || evt.type === 'click') {
       window.pin.deleteActiveClass();
@@ -55,13 +55,13 @@
       document.addEventListener('keydown', window.card.dialogCloseHandler);
     }
   };
-  
+
   tokyoPinMap.addEventListener('click', function (evt) {
     pinClickHandler(evt);
   });
 
-tokyoPinMap.addEventListener('keydown', function (evt) {
+  tokyoPinMap.addEventListener('keydown', function (evt) {
     pinClickHandler(evt);
   });
-  
+
 })();

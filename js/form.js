@@ -1,8 +1,8 @@
 'use strict';
 (function () {
-  var MIN_PRICE = [0, 1000, 5000, 10000];  
+  var MIN_PRICE = [0, 1000, 5000, 10000];
 
-  var noticeForm = document.querySelector('.notice__form');  
+  var noticeForm = document.querySelector('.notice__form');
   var timeIn = noticeForm.querySelector('#timein');
   var timeOut = noticeForm.querySelector('#timeout');
 

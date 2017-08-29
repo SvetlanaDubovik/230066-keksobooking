@@ -1,5 +1,5 @@
 'use strict';
-(function () {  
+(function () {
   var TITLE_VALUES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
   var TYPE_VALUES = ['flat', 'house', 'bungalo'];
   var TYPE_VALUES_OBJ = {
@@ -10,10 +10,8 @@
   var CHEK_IN_OUT_VALUES = ['12.00', '13.00', '14.00'];
   var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
-    var AD_COUNT = 8;
-
-
-
+  var AD_COUNT = 8;
+  
   var generateRandomNumber = function (min, max) {
     return Math.round(Math.random() * (max - min) + min);
   };
@@ -21,7 +19,7 @@
   var generateRandomValue = function (value) {
     var number = generateRandomNumber(0, value.length - 1);
     return value[number];
-  };  
+  };
 
   //  перемешивание массива по алгоритму Фишера-Йетса
   var mixArray = function (arr, isLength) {
@@ -36,7 +34,7 @@
   };
 
   var titleValuesMix = mixArray(TITLE_VALUES, true);
-  var avatarAddressMix = mixArray(AVATAR_ADDRESS, true);  
+  var avatarAddressMix = mixArray(AVATAR_ADDRESS, true);
 
   var generateLocations = function (k) {
     var loc = [];
@@ -101,7 +99,7 @@
   };
 
   window.data = {
-    adObjs : generateAdObjects(AD_COUNT)  
-  }; 
-  
+    adObjs: generateAdObjects(AD_COUNT)
+  };
+
 })();
