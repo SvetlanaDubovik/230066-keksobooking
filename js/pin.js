@@ -27,7 +27,7 @@
       }
     }
   };
- 
+
   var getAdObjectsNumber = function (str) {
     for (var i = 0; i < adObjects.length; i++) {
       if (str === adObjects[i].author.avatar) {

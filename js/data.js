@@ -11,7 +11,7 @@
   var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
   var AD_COUNT = 8;
-  
+
   var generateRandomNumber = function (min, max) {
     return Math.round(Math.random() * (max - min) + min);
   };

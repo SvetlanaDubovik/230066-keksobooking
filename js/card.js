@@ -2,7 +2,7 @@
 (function () {
   var adObjects = window.data.adObjs;
   var offerDialog = document.querySelector('#offer-dialog');
-  
+
   window.card = {
     dialogCloseHandler: function (evt) {
       if (evt.keyCode === window.card.ESC_KEYCODE) {
@@ -25,7 +25,7 @@
         span = '';
         span = document.createElement('span');
         span.className = 'feature__image feature__image--' + adObjects[k].offer.features[i];
-      element.querySelector('.lodge__features').appendChild(span);
+        element.querySelector('.lodge__features').appendChild(span);
       }
       element.querySelector('.lodge__description').textContent = adObjects[k].offer.description;
       offerDialog.classList.remove('hidden');
@@ -39,15 +39,15 @@
     ENTER_KEYCODE: 13,
     ESC_KEYCODE: 27
   };
-  
+
   window.card.openAd(0);
-  
+
   var closeAd = function () {
     offerDialog.classList.add('hidden');
     window.pin.deleteActiveClass();
     document.removeEventListener('keydown', window.card.dialogCloseHandler);
   };
-  
+
   offerDialog.addEventListener('click', function (evt) {
     var target = evt.target;
     while (target !== offerDialog) {
