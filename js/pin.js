@@ -38,16 +38,16 @@
   };
 
   var pinClickHandler = function (evt) {
-    if (evt.keyCode === window.card.ENTER_KEYCODE || evt.type === 'click') {
-      window.pin.deleteActiveClass();
+    if (evt.keyCode === window.card.ENTER_KEYCODE || evt.type === 'click') {     
       var target = evt.target;
       while (target !== tokyoPinMap) {
         if (target.className === 'pin') {
+          window.pin.deleteActiveClass();
           target.classList.add('pin--active');
           var source = target.firstElementChild.getAttribute('src');
           var num = getAdObjectsNumber(source);
           if (num !== -1) {
-            window.card.openAd(num);
+            window.card.dialogOpenHandler(num);
           }
         }
         target = target.parentNode;
