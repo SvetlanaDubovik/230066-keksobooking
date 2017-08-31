@@ -1,17 +1,33 @@
 'use strict';
 (function () {
+  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+  
   var adObjects = window.data.adObjs;
   var offerDialog = document.querySelector('#offer-dialog');
+  offerDialog.classList.add('hidden'); 
 
   window.card = {
-    ENTER_KEYCODE: 13,
-    ESC_KEYCODE: 27,
-    dialogCloseHandler: function (evt) {
-      if (evt.keyCode === window.card.ESC_KEYCODE) {
+    isEscKey: function (evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        return true; 
+      } else {
+        return false;
+      }
+    },
+     isEnterKey: function (evt) {
+      if (evt.keyCode === ENTER_KEYCODE) {
+        return true;
+      } else {
+        return false;
+      }
+    },    
+    dialogEscCloseHandler: function (evt) {
+      if (window.card.isEscKey(evt) === true) {
         dialogCloseHandler();
       }
     },
-    dialogOpenHandler: function (k) {
+    openDialog: function (k) {
       var template = document.querySelector('#lodge-template');
       var element = template.content.querySelector('.dialog__panel').cloneNode(true);
       element.querySelector('.lodge__title').textContent = adObjects[k].offer.title;
@@ -40,19 +56,16 @@
     }
   };
 
-  window.card.dialogOpenHandler(0);
-
-  var dialogCloseHandler = function () {
+  var dialogCloseHandler= function () {
     offerDialog.classList.add('hidden');
     window.pin.deleteActiveClass();
-    document.removeEventListener('keydown', window.card.dialogCloseHandler);
+    document.removeEventListener('keydown', window.card.dialogEscCloseHandler);
   };
-
-  offerDialog.addEventListener('click', dialogCloseHandler);
-  offerDialog.addEventListener('keydown', function () {
-    if (evt.keycode === window.card.ENTER_KEYCODE){ 
-      dialogCloseHandler();
-    }
-  });
+  
+  offerDialog.addEventListener('click', dialogCloseHandler); 
+  offerDialog.addEventListener('keydown', function (evt) {
+  if (window.card.isEnterKey(evt) === true){ 
+    dialogCloseHandler();}
+  }); 
 
 })();
