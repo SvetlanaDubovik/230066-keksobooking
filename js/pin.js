@@ -83,7 +83,7 @@
     left: 320
   };
 
-  showAddress(pinMain.offsetLeft, pinMain.offsetTop); 
+  showAddress(pinMain.offsetLeft, pinMain.offsetTop);
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -109,15 +109,15 @@
       var pinMainX = (pinMain.offsetLeft - shift.x);
       var pinMainY = (pinMain.offsetTop - shift.y);
 
-      if(pinMainX > limits.right) {
+      if (pinMainX > limits.right) {
         pinMainX = limits.right;
       } else if (pinMainX < limits.left) {
         pinMainX = limits.left;
       }
 
       if (pinMainY > limits.bottom) {
-        pinMainY  = limits.bottom;
-      } else if (pinMainY  < limits.top) {
+        pinMainY = limits.bottom;
+      } else if (pinMainY < limits.top) {
         pinMainY = limits.top;
       }
 
