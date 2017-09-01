@@ -10,7 +10,7 @@
   var CHEK_IN_OUT_VALUES = ['12.00', '13.00', '14.00'];
   var FEATURES_VALUES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var AVATAR_ADDRESS = [1, 2, 3, 4, 5, 6, 7, 8];
-  var AD_COUNT = 8;
+  var DIALOG_COUNT = 8;
 
   var generateRandomNumber = function (min, max) {
     return Math.round(Math.random() * (max - min) + min);
@@ -58,7 +58,7 @@
     return obj;
   };
 
-  var locations = generateLocations(AD_COUNT);
+  var locations = generateLocations(DIALOG_COUNT);
 
   //  создание объектов
   var initialAdObject = function (k) {
@@ -99,7 +99,7 @@
   };
 
   window.data = {
-    adObjs: generateAdObjects(AD_COUNT)
+    adObjs: generateAdObjects(DIALOG_COUNT)
   };
 
 })();

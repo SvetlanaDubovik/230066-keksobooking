@@ -1,15 +1,33 @@
 'use strict';
 (function () {
+  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+
   var adObjects = window.data.adObjs;
   var offerDialog = document.querySelector('#offer-dialog');
+  offerDialog.classList.add('hidden');
 
   window.card = {
-    dialogCloseHandler: function (evt) {
-      if (evt.keyCode === window.card.ESC_KEYCODE) {
-        closeAd();
+    isEscKey: function (evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        return true;
+      } else {
+        return false;
       }
     },
-    openAd: function (k) {
+    isEnterKey: function (evt) {
+      if (evt.keyCode === ENTER_KEYCODE) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    dialogEscCloseHandler: function (evt) {
+      if (window.card.isEscKey(evt) === true) {
+        dialogCloseHandler();
+      }
+    },
+    openDialog: function (k) {
       var template = document.querySelector('#lodge-template');
       var element = template.content.querySelector('.dialog__panel').cloneNode(true);
       element.querySelector('.lodge__title').textContent = adObjects[k].offer.title;
@@ -35,26 +53,19 @@
 
       var dialogTitle = offerDialog.querySelector('.dialog__title');
       dialogTitle.children[0].setAttribute('src', adObjects[k].author.avatar);
-    },
-    ENTER_KEYCODE: 13,
-    ESC_KEYCODE: 27
+    }
   };
 
-  window.card.openAd(0);
-
-  var closeAd = function () {
+  var dialogCloseHandler = function () {
     offerDialog.classList.add('hidden');
     window.pin.deleteActiveClass();
-    document.removeEventListener('keydown', window.card.dialogCloseHandler);
+    document.removeEventListener('keydown', window.card.dialogEscCloseHandler);
   };
 
-  offerDialog.addEventListener('click', function (evt) {
-    var target = evt.target;
-    while (target !== offerDialog) {
-      if (target.className === 'dialog__close') {
-        closeAd();
-      }
-      target = target.parentNode;
+  offerDialog.addEventListener('click', dialogCloseHandler);
+  offerDialog.addEventListener('keydown', function (evt) {
+    if (window.card.isEnterKey(evt) === true) {
+      dialogCloseHandler();
     }
   });
 
