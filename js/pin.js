@@ -76,7 +76,14 @@
     address.value = 'x: ' + xCoord + 'px, y:' + yCoord + 'px';
   };
 
-  showAddress(pinMain.offsetLeft, pinMain.offsetTop);
+  var limits = {
+    top: 160,
+    right: 920,
+    bottom: 560,
+    left: 320
+  };
+
+  showAddress(pinMain.offsetLeft, pinMain.offsetTop); 
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -99,11 +106,23 @@
         y: moveEvt.clientY
       };
 
-      var pinMainX = (pinMain.offsetTop - shift.y);
-      var pinMainY = (pinMain.offsetLeft - shift.x);
+      var pinMainX = (pinMain.offsetLeft - shift.x);
+      var pinMainY = (pinMain.offsetTop - shift.y);
 
-      pinMain.style.top = pinMainX + 'px';
-      pinMain.style.left = pinMainY + 'px';
+      if(pinMainX > limits.right) {
+        pinMainX = limits.right;
+      } else if (pinMainX < limits.left) {
+        pinMainX = limits.left;
+      }
+
+      if (pinMainY > limits.bottom) {
+        pinMainY  = limits.bottom;
+      } else if (pinMainY  < limits.top) {
+        pinMainY = limits.top;
+      }
+
+      pinMain.style.left = pinMainX + 'px';
+      pinMain.style.top = pinMainY + 'px';
 
       showAddress(pinMainX, pinMainY);
     };
