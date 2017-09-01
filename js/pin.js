@@ -39,7 +39,7 @@
   };
 
   var pinClickHandler = function (evt) {
-    if (window.card.isEnterKey(evt) === true || evt.type === 'click') { 
+    if (window.card.isEnterKey(evt) === true || evt.type === 'click') {
       var target = evt.target;
       while (target !== tokyoPinMap) {
         if (target.className === 'pin') {
@@ -66,7 +66,8 @@
   });
 
   var pinMain = tokyoPinMap.querySelector('.pin__main ');
-  var pinImg = pinMain.querySelector('img');
+  pinMain.style.position = 'absolute';
+  pinMain.style.zIndex = 1000;
 
   var showAddress = function (x, y) {
     var xCoord = +x + pinMain.offsetWidth / 2;
@@ -114,9 +115,9 @@
       document.removeEventListener('mouseup', onMouseUp);
     };
 
-  document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
 
- });
+    });
 
 })();

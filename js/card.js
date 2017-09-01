@@ -2,26 +2,26 @@
 (function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
-  
+
   var adObjects = window.data.adObjs;
   var offerDialog = document.querySelector('#offer-dialog');
-  offerDialog.classList.add('hidden'); 
+  offerDialog.classList.add('hidden');
 
   window.card = {
     isEscKey: function (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        return true; 
+        return true;
       } else {
         return false;
       }
     },
-     isEnterKey: function (evt) {
+    isEnterKey: function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
         return true;
       } else {
         return false;
       }
-    },    
+    },
     dialogEscCloseHandler: function (evt) {
       if (window.card.isEscKey(evt) === true) {
         dialogCloseHandler();
@@ -56,16 +56,17 @@
     }
   };
 
-  var dialogCloseHandler= function () {
+  var dialogCloseHandler = function () {
     offerDialog.classList.add('hidden');
     window.pin.deleteActiveClass();
     document.removeEventListener('keydown', window.card.dialogEscCloseHandler);
   };
-  
-  offerDialog.addEventListener('click', dialogCloseHandler); 
+
+  offerDialog.addEventListener('click', dialogCloseHandler);
   offerDialog.addEventListener('keydown', function (evt) {
-  if (window.card.isEnterKey(evt) === true){ 
-    dialogCloseHandler();}
-  }); 
+    if (window.card.isEnterKey(evt) === true) {
+      dialogCloseHandler();
+    }
+  });
 
 })();
