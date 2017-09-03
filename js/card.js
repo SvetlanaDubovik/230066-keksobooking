@@ -9,21 +9,13 @@
 
   window.card = {
     isEscKey: function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        return true;
-      } else {
-        return false;
-      }
+      return evt.keyCode && evt.keyCode === ESC_KEYCODE;
     },
-    isEnterKey: function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        return true;
-      } else {
-        return false;
-      }
+    isEnterKey: function(evt) {
+      return evt.keyCode && evt.keyCode === ENTER_KEY_CODE;
     },
     dialogEscCloseHandler: function (evt) {
-      if (window.card.isEscKey(evt) === true) {
+      if (window.card.isEscKey(evt)) {
         dialogCloseHandler();
       }
     },
@@ -64,7 +56,7 @@
 
   offerDialog.addEventListener('click', dialogCloseHandler);
   offerDialog.addEventListener('keydown', function (evt) {
-    if (window.card.isEnterKey(evt) === true) {
+    if (window.card.isEnterKey(evt)) {
       dialogCloseHandler();
     }
   });
