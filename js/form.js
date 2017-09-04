@@ -12,11 +12,11 @@
   };
 
   timeIn.addEventListener('change', function () {
-    doSameSelectValue(timeIn, timeOut);
+    window.synchronizeFields(timeIn, timeOut, doSameSelectValue);
   });
 
   timeOut.addEventListener('change', function () {
-    doSameSelectValue(timeOut, timeIn);
+    window.synchronizeFields(timeOut, timeIn, doSameSelectValue);
   });
 
   var roomNumber = noticeForm.querySelector('#room_number');
@@ -31,86 +31,86 @@
     }
   };
 
-  var isCorrespondRoomToCapacity = function () {
-    switch (roomNumberOptions.selectedIndex) {
+  var isCorrespondRoomToCapacity = function (room, guests) {
+    var length = guests.length;
+    switch (room.selectedIndex) {
       // 1 комната
       case 0:
         removeDisabledAttribute();
-        for (var i = 0; i < capacityOptionsLength; i++) {
-          if (capacityOptions[i].value !== '1') {
-            capacityOptions[i].setAttribute('disabled', 'disabled');
+        for (var i = 0; i < length; i++) {
+          if (guests[i].value !== '1') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacityOptions.selectedIndex = 2;
+        guests.selectedIndex = 2;
         break;
       // 2 комнаты
       case 1:
         removeDisabledAttribute();
-        for (i = 0; i < capacityOptionsLength; i++) {
-          if (capacityOptions[i].value > 2 || capacityOptions[i].value === '0') {
-            capacityOptions[i].setAttribute('disabled', 'disabled');
+        for (i = 0; i < length; i++) {
+          if (guests[i].value > 2 || guests[i].value === '0') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacityOptions.selectedIndex = 1;
+        guests.selectedIndex = 1;
         break;
       // 3 комнаты
       case 2:
         removeDisabledAttribute();
-        capacityOptions[3].setAttribute('disabled', 'disabled');
-        capacityOptions.selectedIndex = 0;
+        guests[3].setAttribute('disabled', 'disabled');
+        guests.selectedIndex = 0;
         break;
       // 100 комнат
       case 3:
         removeDisabledAttribute();
-        for (i = 0; i < capacityOptionsLength; i++) {
-          if (capacityOptions[i].value !== '0') {
-            capacityOptions[i].setAttribute('disabled', 'disabled');
+        for (i = 0; i < length; i++) {
+          if (guests[i].value !== '0') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacityOptions.selectedIndex = 3;
+        guests.selectedIndex = 3;
         break;
     }
   };
 
   roomNumber.addEventListener('change', function () {
-    isCorrespondRoomToCapacity();
+    window.synchronizeFields(roomNumberOptions, capacityOptions, isCorrespondRoomToCapacity);
   });
 
   window.addEventListener('load', function () {
-    isCorrespondRoomToCapacity();
+    window.synchronizeFields(roomNumberOptions, capacityOptions, isCorrespondRoomToCapacity);
   });
 
   var houseType = noticeForm.querySelector('#type');
-  var houseTypeOptions = houseType.options;
   var price = noticeForm.querySelector('#price');
 
   var checkMinPrice = function (val) {
     price.value = val;
   };
 
-  var isCorrespondTypeToPrice = function () {
-    switch (houseTypeOptions.selectedIndex) {
+  var isCorrespondTypeToPrice = function (house, cost) {
+    switch (house.selectedIndex) {
       case 0:
-        price.setAttribute('min', MIN_PRICE[1]);
+        cost.setAttribute('min', MIN_PRICE[1]);
         checkMinPrice(MIN_PRICE[1]);
         break;
       case 1:
-        price.setAttribute('min', MIN_PRICE[0]);
+        cost.setAttribute('min', MIN_PRICE[0]);
         checkMinPrice(MIN_PRICE[0]);
         break;
       case 2:
-        price.setAttribute('min', MIN_PRICE[2]);
+        cost.setAttribute('min', MIN_PRICE[2]);
         checkMinPrice(MIN_PRICE[2]);
         break;
       case 3:
-        price.setAttribute('min', MIN_PRICE[3]);
+        cost.setAttribute('min', MIN_PRICE[3]);
         checkMinPrice(MIN_PRICE[3]);
         break;
     }
   };
 
   houseType.addEventListener('change', function () {
-    isCorrespondTypeToPrice();
+    window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
   });
 
 })();
