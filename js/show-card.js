@@ -15,9 +15,9 @@
     var length = obj.offer.features.length;
     for (var i = 0; i < length; i++) {
       span = '';
-       span = document.createElement('span');
-       span.className = 'feature__image feature__image--' + obj.offer.features[i];
-       element.querySelector('.lodge__features').appendChild(span);
+      span = document.createElement('span');
+      span.className = 'feature__image feature__image--' + obj.offer.features[i];
+      element.querySelector('.lodge__features').appendChild(span);
     }
     element.querySelector('.lodge__description').textContent = obj.offer.description;
     offerDialog.classList.remove('hidden');
