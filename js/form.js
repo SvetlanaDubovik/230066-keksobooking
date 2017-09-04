@@ -12,11 +12,11 @@
   };
 
   timeIn.addEventListener('change', function () {
-    window.synchronizeFields(timeIn, timeOut, doSameSelectValue)
+    window.synchronizeFields(timeIn, timeOut, doSameSelectValue);
   });
 
   timeOut.addEventListener('change', function () {
-    window.synchronizeFields(timeOut, timeIn, doSameSelectValue)
+    window.synchronizeFields(timeOut, timeIn, doSameSelectValue);
   });
 
   var roomNumber = noticeForm.querySelector('#room_number');
@@ -31,44 +31,44 @@
     }
   };
 
-  var isCorrespondRoomToCapacity = function (room, capacity) {
-    var length = capacity.length;
+  var isCorrespondRoomToCapacity = function (room, guests) {
+    var length = guests.length;
     switch (room.selectedIndex) {
       // 1 комната
       case 0:
         removeDisabledAttribute();
         for (var i = 0; i < length; i++) {
-          if (capacity[i].value !== '1') {
-            capacity[i].setAttribute('disabled', 'disabled');
+          if (guests[i].value !== '1') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacity.selectedIndex = 2;
+        guests.selectedIndex = 2;
         break;
       // 2 комнаты
       case 1:
         removeDisabledAttribute();
         for (i = 0; i < length; i++) {
-          if (capacity[i].value > 2 || capacity[i].value === '0') {
-            capacity[i].setAttribute('disabled', 'disabled');
+          if (guests[i].value > 2 || guests[i].value === '0') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacity.selectedIndex = 1;
+        guests.selectedIndex = 1;
         break;
       // 3 комнаты
       case 2:
         removeDisabledAttribute();
-        capacity[3].setAttribute('disabled', 'disabled');
-        capacity.selectedIndex = 0;
+        guests[3].setAttribute('disabled', 'disabled');
+        guests.selectedIndex = 0;
         break;
       // 100 комнат
       case 3:
         removeDisabledAttribute();
         for (i = 0; i < length; i++) {
-          if (capacity[i].value !== '0') {
-            capacity[i].setAttribute('disabled', 'disabled'); 
+          if (guests[i].value !== '0') {
+            guests[i].setAttribute('disabled', 'disabled');
           }
         }
-        capacity.selectedIndex = 3;
+        guests.selectedIndex = 3;
         break;
     }
   };
@@ -82,7 +82,6 @@
   });
 
   var houseType = noticeForm.querySelector('#type');
-  var houseTypeOptions = houseType.options;
   var price = noticeForm.querySelector('#price');
 
   var checkMinPrice = function (val) {

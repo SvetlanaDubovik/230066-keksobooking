@@ -38,7 +38,7 @@
     return -1;
   };
 
-  var pinClickHandler = function (evt) { 
+  var pinClickHandler = function (evt) {
     if (window.card.isEnterKey(evt) || evt.type === 'click') {
       var target = evt.target;
       while (target !== tokyoPinMap) {
@@ -84,12 +84,12 @@
   };
 
   showAddress(pinMain.offsetLeft, pinMain.offsetTop);
-  
+
   var startCoords = {
     x: null,
     y: null
   };
-  
+
   var onMouseMoveHandler = function (moveEvt) {
     moveEvt.preventDefault();
 

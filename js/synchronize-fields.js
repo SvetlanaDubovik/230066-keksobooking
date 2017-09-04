@@ -1,6 +1,6 @@
 'use strict';
-(function () {  
+(function () {
   window.synchronizeFields = function (firstElem, secondElem, callback) {
     callback(firstElem, secondElem);
-  }
+  };
 })();
