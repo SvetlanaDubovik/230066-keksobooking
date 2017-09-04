@@ -38,7 +38,7 @@
     return -1;
   };
 
-  var pinClickHandler = function (evt) {
+  var pinClickHandler = function (evt) { 
     if (window.card.isEnterKey(evt) || evt.type === 'click') {
       var target = evt.target;
       while (target !== tokyoPinMap) {
@@ -48,7 +48,7 @@
           var source = target.firstElementChild.getAttribute('src');
           var num = getAdObjectsNumber(source);
           if (num !== -1) {
-            window.card.openDialog(num);
+            window.showCard(adObjects[num]);
           }
         }
         target = target.parentNode;
