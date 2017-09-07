@@ -11,13 +11,13 @@
     tokyoPinMap.appendChild(fragment);
   };
 
-     window.data = {
+  window.data = {
     adObjs: null
   };
 
   var successHandler = function (data) {
     window.data.adObjs = data;
-    showMarkers(data);    
+    showMarkers(data);
   };
 
   window.backend.load(successHandler, window.backend.errorHandler);
