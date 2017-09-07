@@ -113,4 +113,12 @@
     window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
   });
 
+  noticeForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(noticeForm), function () {
+      alert("Ваши данные успешно отправлены");
+      noticeForm.reset();
+    }, window.backend.errorHandler);
+  });
+
 })();
