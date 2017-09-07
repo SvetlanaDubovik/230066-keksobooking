@@ -112,13 +112,13 @@
   houseType.addEventListener('change', function () {
     window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
   });
-  
+
   noticeForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(noticeForm), function () {
       window.backend.generateInfoStatus('Данные переданы успешно');
-      noticeForm.reset();      
-    }, window.backend.errorHandler);    
+      noticeForm.reset();
+    }, window.backend.errorHandler);
   });
 
 })();

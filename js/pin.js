@@ -29,8 +29,8 @@
   };
 
   var getAdObjectsNumber = function (str) {
-    for (var i = 0; i < window.data.adObjs.length; i++) {
-      if (str === window.data.adObjs[i].author.avatar) {
+    for (var i = 0; i < window.map.adObjs.length; i++) {
+      if (str === window.map.adObjs[i].author.avatar) {
         return i;
       }
     }
@@ -47,7 +47,7 @@
           var source = target.firstElementChild.getAttribute('src');
           var num = getAdObjectsNumber(source);
           if (num !== -1) {
-            window.showCard(window.data.adObjs[num]);
+            window.showCard(window.map.adObjs[num]);
           }
         }
         target = target.parentNode;
