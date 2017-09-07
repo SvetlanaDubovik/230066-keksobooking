@@ -33,7 +33,7 @@
   var infoStatusActions = function () {
     var infoStatus = document.querySelector('.infoStatus');
 
-    infoStatus.addEventListener('click', function (evt) {
+    infoStatus.addEventListener('click', function () {
       infoStatusCloseHandler(infoStatus);
     });
     infoStatus.addEventListener('keydown', function (evt) {
