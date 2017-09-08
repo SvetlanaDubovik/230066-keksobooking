@@ -9,6 +9,8 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onLoad(xhr.response);
+      } else if (xhr.status === 400) {
+        onError('Неверный запрос');
       } else {
         onError(xhr.response);
       }
@@ -25,7 +27,9 @@
     return xhr;
   };
   var infoStatusCloseHandler = function (info) {
-    info.classList.add('hidden');
+    if (info) {
+      info.parentNode.removeChild(info);
+    }
     document.removeEventListener('keydown', infoStatusCloseHandler);
     document.removeEventListener('click', infoStatusCloseHandler);
   };
