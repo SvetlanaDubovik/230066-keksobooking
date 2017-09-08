@@ -1,7 +1,6 @@
 'use strict';
 (function () {
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-  var adObjects = window.data.adObjs;
 
   //  вывод объектов на карту
   var showMarkers = function (arrObj) {
@@ -12,5 +11,14 @@
     tokyoPinMap.appendChild(fragment);
   };
 
-  showMarkers(adObjects);
+  window.map = {
+    adObjs: null
+  };
+
+  var successHandler = function (data) {
+    window.map.adObjs = data;
+    showMarkers(data);
+  };
+
+  window.backend.load(successHandler, window.backend.errorHandler);
 })();

@@ -113,4 +113,14 @@
     window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
   });
 
+  noticeForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(noticeForm), function () {
+      window.backend.generateInfoStatus('Данные переданы успешно');
+      noticeForm.reset();
+      window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
+      window.synchronizeFields(roomNumberOptions, capacityOptions, isCorrespondRoomToCapacity);
+    }, window.backend.errorHandler);
+  });
+
 })();

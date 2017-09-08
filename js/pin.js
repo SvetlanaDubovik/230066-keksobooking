@@ -1,7 +1,6 @@
 'use strict';
 (function () {
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-  var adObjects = window.data.adObjs;
   var address = document.querySelector('#address');
 
   window.pin = {
@@ -30,8 +29,8 @@
   };
 
   var getAdObjectsNumber = function (str) {
-    for (var i = 0; i < adObjects.length; i++) {
-      if (str === adObjects[i].author.avatar) {
+    for (var i = 0; i < window.map.adObjs.length; i++) {
+      if (str === window.map.adObjs[i].author.avatar) {
         return i;
       }
     }
@@ -48,7 +47,7 @@
           var source = target.firstElementChild.getAttribute('src');
           var num = getAdObjectsNumber(source);
           if (num !== -1) {
-            window.showCard(adObjects[num]);
+            window.showCard(window.map.adObjs[num]);
           }
         }
         target = target.parentNode;
@@ -78,7 +77,7 @@
 
   var limits = {
     top: 160,
-    right: 920,
+    right: 1135,
     bottom: 560,
     left: 320
   };
