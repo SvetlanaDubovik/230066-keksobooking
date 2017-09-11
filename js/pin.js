@@ -160,47 +160,111 @@
       });
     window.map.showMarkers(arrObjs);
   };
-
+  
+  var filteredField = {
+    'housing_type': null,
+    'housing_price': null,
+    'housing_room-number': null,
+    'housing_guests-number': null 
+  };
+  var setFilteredField = function (field, val) {
+    filteredField[field] = val;
+  };
+  
+  var filterHousingType = function (obj, val) {
+    var res = obj.filter(function (it) {
+      return it.offer.type === val;
+    });
+    return res;
+  };
+  
+  var filterPrice = function(min, max) {
+    var res = window.pin.filteredValues.filter(function (it) {
+      return it.offer.price >= min && it.offer.price <= max;
+    });
+    return res;
+  };
+  
+  var filterRooms = function (val) {
+    var res = window.pin.filteredValues.filter(function (it) {
+      return it.offer.rooms === val;
+    });
+    return res;
+  };
+  
+  var filterGuests = function (val) {
+    var res = window.pin.filteredValues.filter(function (it) {
+      return it.offer.guests === val;
+    });
+    return res;
+   };
+  
+  window.pin.filteredValues = null;
+  
   var checkSelect = function () {
+    var intermediateFilterValue = null;
     var pins = tokyoPinMap.querySelectorAll('.pin');
     var value = this.children[this.selectedIndex].value;
-    var filteredValues = null;
+    intermediateFilterValue = window.pin.filteredValues;
+    
+    if (value === 'any') {
+      var el = this.id;
+      filteredField[el] = null;
+      for (var key in filteredField) {
+        switch(key) {
+          case 'housing_type':
+            filterHousingType(window.map.adObjs, filteredField[key]);
+            break;
+          case 'housing_price':
+            filterPrice(window.map.adObjs, filteredField[key]);
+            break;
+          case 'housing_room-number':
+            filterRooms(window.map.adObjs, filteredField[key]);
+            break;
+          case 'housing_guests-number':
+            filterGuests(window.map.adObjs, filteredField[key]);
+            break;
+        }
+      }
+    } 
+    
     switch(this.id) {
       case 'housing_type':
-        filteredValues = window.map.adObjs.filter(function (it) {
-          return it.offer.type === value;
-        });
+        intermediateFilterValue = filterHousingType(window.pin.filteredValues, value);
+        setFilteredField('housing_type', value);
         break;
       case 'housing_price':
         var lowValue = 10000;
         var highValue = 50000;
         if (value === 'low') {
-          filteredValues = window.map.adObjs.filter(function (it) {
-            return it.offer.price >= 0 && it.offer.price <= lowValue;
-        });
+          intermediateFilterValue = filterPrice(0, lowValue);
+            
         } else if (value === 'middle') {
-          filteredValues = window.map.adObjs.filter(function (it) {
-            return it.offer.price >= lowValue && it.offer.price <= highValue;
-        });
+          intermediateFilterValue = filterPrice(lowValue, highValue);
+
         } else if (value === 'high') {
-          filteredValues = window.map.adObjs.filter(function (it) {
-            return it.offer.price >= highValue;
-        });
+          intermediateFilterValue = filterPrice(highValue, Infinity);
+         
         }
-        break;
-      case 'housing_room-number':
-        var val = parseInt(value, 10);
-        filteredValues = window.map.adObjs.filter(function (it) {
-          return it.offer.rooms === val;
-        });
-        break;
-      case 'housing_guests-number':
-        filteredValues = window.map.adObjs.filter(function (it) {
-          return it.offer.guests === +value;
-        });
-        break;
-    }
-    updateMarkers(filteredValues);
+          setFilteredField('housing_price', value);
+          break;
+          
+        case 'housing_room-number':
+          var val = parseInt(value, 10);
+          intermediateFilterValue = filterRooms(val);
+          setFilteredField('housing_room-number', value);
+          break;
+        case 'housing_guests-number':
+          var val = parseInt(value, 10);
+          intermediateFilterValue = filterGuests(val);
+          setFilteredField('housing_guests-number', value);
+          break;
+       }
+
+    window.pin.filteredValues = intermediateFilterValue;
+    
+ 
+    updateMarkers(intermediateFilterValue);
   };
 
   filters.forEach( function (it) {
