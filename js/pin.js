@@ -1,10 +1,10 @@
 'use strict';
-(function () {
+(function () { 
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var address = document.querySelector('#address');
 
   window.pin = {
-    generateMarkerLayout: function (x, y, avatar) {
+    generateMarkerLayout: function (x, y, avatar, k) {
       var widthHeight = 40;
       var divBlock = document.createElement('div');
       var pic = document.createElement('img');
@@ -17,6 +17,7 @@
       divBlock.setAttribute('tabIndex', 0);
       divBlock.style.left = x - pic.width / 2 + 'px';
       divBlock.style.top = y - pic.height + 'px';
+      divBlock.id = 'id' + k;
       divBlock.appendChild(pic);
       return divBlock;
     },
@@ -29,8 +30,9 @@
   };
 
   var getAdObjectsNumber = function (str) {
+    var idValue = parseInt(str.slice(2), 10);
     for (var i = 0; i < window.map.adObjs.length; i++) {
-      if (str === window.map.adObjs[i].author.avatar) {
+      if (idValue === i) {
         return i;
       }
     }
@@ -44,8 +46,8 @@
         if (target.className === 'pin') {
           window.pin.deleteActiveClass();
           target.classList.add('pin--active');
-          var source = target.firstElementChild.getAttribute('src');
-          var num = getAdObjectsNumber(source);
+          var id = target.getAttribute('id');
+          var num = getAdObjectsNumber(id);
           if (num !== -1) {
             window.showCard(window.map.adObjs[num]);
           }
@@ -144,6 +146,65 @@
     document.addEventListener('mousemove', onMouseMoveHandler);
     document.addEventListener('mouseup', onMouseUpHandler);
 
+  });
+  
+  var features = document.querySelectorAll('.feature');
+  var filters = document.querySelectorAll('.tokyo__filter');
+
+  var updateMarkers = function (arrObjs) {
+    var tokyoPinMap = document.querySelector('.tokyo__pin-map');
+    var pins = tokyoPinMap.querySelectorAll('.pin');
+    pins.forEach(function (it) {
+      if (!it.classList.contains('pin__main'))
+        it.parentNode.removeChild(it);
+      });
+    window.map.showMarkers(arrObjs);
+  };
+
+  var checkSelect = function () {
+    var pins = tokyoPinMap.querySelectorAll('.pin');
+    var value = this.children[this.selectedIndex].value;
+    var filteredValues = null;
+    switch(this.id) {
+      case 'housing_type':
+        filteredValues = window.map.adObjs.filter(function (it) {
+          return it.offer.type === value;
+        });
+        break;
+      case 'housing_price':
+        var lowValue = 10000;
+        var highValue = 50000;
+        if (value === 'low') {
+          filteredValues = window.map.adObjs.filter(function (it) {
+            return it.offer.price >= 0 && it.offer.price <= lowValue;
+        });
+        } else if (value === 'middle') {
+          filteredValues = window.map.adObjs.filter(function (it) {
+            return it.offer.price >= lowValue && it.offer.price <= highValue;
+        });
+        } else if (value === 'high') {
+          filteredValues = window.map.adObjs.filter(function (it) {
+            return it.offer.price >= highValue;
+        });
+        }
+        break;
+      case 'housing_room-number':
+        var val = parseInt(value, 10);
+        filteredValues = window.map.adObjs.filter(function (it) {
+          return it.offer.rooms === val;
+        });
+        break;
+      case 'housing_guests-number':
+        filteredValues = window.map.adObjs.filter(function (it) {
+          return it.offer.guests === +value;
+        });
+        break;
+    }
+    updateMarkers(filteredValues);
+  };
+
+  filters.forEach( function (it) {
+    it.addEventListener('change', checkSelect);
   });
 
 })();
