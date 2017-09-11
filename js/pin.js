@@ -178,22 +178,22 @@
     return res;
   };
   
-  var filterPrice = function(min, max) {
-    var res = window.pin.filteredValues.filter(function (it) {
+  var filterPrice = function(obj, min, max) {
+    var res = obj.filter(function (it) {
       return it.offer.price >= min && it.offer.price <= max;
     });
     return res;
   };
   
-  var filterRooms = function (val) {
-    var res = window.pin.filteredValues.filter(function (it) {
+  var filterRooms = function (obj, val) {
+    var res = obj.filter(function (it) {
       return it.offer.rooms === val;
     });
     return res;
   };
   
-  var filterGuests = function (val) {
-    var res = window.pin.filteredValues.filter(function (it) {
+  var filterGuests = function (obj, val) {
+    var res = obj.filter(function (it) {
       return it.offer.guests === val;
     });
     return res;
@@ -237,13 +237,13 @@
         var lowValue = 10000;
         var highValue = 50000;
         if (value === 'low') {
-          intermediateFilterValue = filterPrice(0, lowValue);
+          intermediateFilterValue = filterPrice(window.pin.filteredValues, 0, lowValue);
             
         } else if (value === 'middle') {
-          intermediateFilterValue = filterPrice(lowValue, highValue);
+          intermediateFilterValue = filterPrice(window.pin.filteredValues, lowValue, highValue);
 
         } else if (value === 'high') {
-          intermediateFilterValue = filterPrice(highValue, Infinity);
+          intermediateFilterValue = filterPrice(window.pin.filteredValues, highValue, Infinity);
          
         }
           setFilteredField('housing_price', value);
@@ -251,12 +251,12 @@
           
         case 'housing_room-number':
           var val = parseInt(value, 10);
-          intermediateFilterValue = filterRooms(val);
+          intermediateFilterValue = filterRooms(window.pin.filteredValues, val);
           setFilteredField('housing_room-number', value);
           break;
         case 'housing_guests-number':
           var val = parseInt(value, 10);
-          intermediateFilterValue = filterGuests(val);
+          intermediateFilterValue = filterGuests(window.pin.filteredValues, val);
           setFilteredField('housing_guests-number', value);
           break;
        }
