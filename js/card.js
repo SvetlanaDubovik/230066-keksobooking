@@ -1,9 +1,9 @@
 'use strict';
-(function () {  
+(function () {
   var offerDialog = document.querySelector('#offer-dialog');
   offerDialog.classList.add('hidden');
 
-  window.card = {    
+  window.card = {
     dialogEscCloseHandler: function (evt) {
       if (window.util.isEscKey(evt)) {
         window.card.dialogCloseHandler();
@@ -13,7 +13,7 @@
       offerDialog.classList.add('hidden');
       window.pin.deleteActiveClass();
       document.removeEventListener('keydown', window.card.dialogEscCloseHandler);
-    }    
+    }
   };
 
   offerDialog.addEventListener('click', window.card.dialogCloseHandler);

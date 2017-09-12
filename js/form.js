@@ -118,7 +118,6 @@
     window.backend.save(new FormData(noticeForm), function () {
       noticeForm.reset();
       window.backend.generateInfoStatus('Данные переданы успешно');
-      
       window.synchronizeFields(houseType, price, isCorrespondTypeToPrice);
       window.synchronizeFields(roomNumberOptions, capacityOptions, isCorrespondRoomToCapacity);
     }, window.backend.errorHandler);

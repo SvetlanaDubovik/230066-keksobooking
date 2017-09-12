@@ -1,5 +1,5 @@
 'use strict';
-(function () { 
+(function () {
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var address = document.querySelector('#address');
 

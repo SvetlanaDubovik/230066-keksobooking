@@ -1,9 +1,9 @@
 'use strict';
 (function () {
   var SERVER_URL = 'https://1510.dump.academy/keksobooking/';
-  var BORDER_SUCCESS = '#35f277'
+  var BORDER_SUCCESS = '#35f277';
   var BACKGROUND_SUCCESS = '#d3ffe2';
-  var BORDER_ERROR = 'red'
+  var BORDER_ERROR = 'red';
   var BACKGROUND_ERROR = '#fff3e8';
 
   var setup = function (onLoad, onError) {
@@ -110,11 +110,11 @@
         spanTextError.textContent = errorMessage;
       }
       if (errorMessage === 'Данные переданы успешно') {
-        node.style.backgroundColor = '#d3ffe2';
-        node.style.borderColor = '#35f277';
+        node.style.backgroundColor = BACKGROUND_SUCCESS;
+        node.style.borderColor = BORDER_SUCCESS;
       } else {
-        node.style.backgroundColor = '#fff3e8';
-        node.style.borderColor = 'red';
+        node.style.backgroundColor = BACKGROUND_ERROR;
+        node.style.borderColor = BORDER_ERROR;
       }
       infoStatusActions();
     }
