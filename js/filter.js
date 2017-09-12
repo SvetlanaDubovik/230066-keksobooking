@@ -16,42 +16,58 @@
   };
   
   var setFilteredField = function (field, val) {
+//    var fieldName = null;
+    switch(field) {
+      case 'housing_type':
+        field = 'housingType';
+        break;
+      case 'housing_price':
+        field = 'housingPrice';
+        break;
+      case 'housing_room-number':
+        field = 'housingRoomNumber';
+        break;
+      case 'housing_guests-number':
+        field = 'housingGuestsNumber';
+        break;
+    }
+    
     if (val === 'any') {
       filteredField[field] = null;
     } else {
       filteredField[field] = val;
     }
-    };
+  };
   
-    var filterHousingType = function (obj, val) {
-      var res = obj.filter(function (it) {
-        return it.offer.type === val;
-      });
-      return res;
-    };
+  var filterHousingType = function (obj, val) {
+    var res = obj.filter(function (it) {
+      return it.offer.type === val;
+    });
+    return res;
+  };
   
-    var filterPrice = function(obj, min, max) {
-      var res = obj.filter(function (it) {
-        return it.offer.price >= min && it.offer.price <= max;
-      });
-      return res;
-    };
+  var filterPrice = function(obj, min, max) {
+    var res = obj.filter(function (it) {
+      return it.offer.price >= min && it.offer.price <= max;
+    });
+    return res;
+  };
   
-    var filterRooms = function (obj, val) {
-      var value = +val;
-      var res = obj.filter(function (it) {
-        return it.offer.rooms === value;
-      });
-      return res;
-    };
+  var filterRooms = function (obj, val) {
+    var value = +val;
+    var res = obj.filter(function (it) {
+      return it.offer.rooms === value;
+    });
+    return res;
+  };
   
-    var filterGuests = function (obj, val) {
-      var value = +val;
-      var res = obj.filter(function (it) {
-        return it.offer.guests === value;
-      });
-      return res;
-     };
+  var filterGuests = function (obj, val) {
+    var value = +val;
+    var res = obj.filter(function (it) {
+      return it.offer.guests === value;
+    });
+    return res;
+  };
   
   var filterFeatures = function (obj, arr) { 
     arr.forEach(function (item, i) {
@@ -61,14 +77,13 @@
     });
     return obj;
     
-     };
+  };
   
   var filteredField = {
-    'housing_type': null,
-    'housing_price': null,
-    'housing_room-number': null,
-    'housing_guests-number': null,
-    'housing_features': null
+    'housingType': null,
+    'housingPrice': null,
+    'housingRoomNumber': null,
+    'housingGuestsNumber': null
   }; 
   
   var filterHandler = function (evt) {
@@ -87,38 +102,37 @@
     setFilteredField(target.id, value);
     }
         
-    if (filteredField['housing_type'] !== null) {
-      copyAdObjs = filterHousingType(copyAdObjs, filteredField['housing_type']);
+    if (filteredField['housingType'] !== null) {
+      copyAdObjs = filterHousingType(copyAdObjs, filteredField['housingType']);
     }
             
-    if (filteredField['housing_price'] !== null) {
+    if (filteredField['housingPrice'] !== null) {
       var lowValue = 10000;
       var highValue = 50000;
-      if (filteredField['housing_price'] === 'low') {
+      if (filteredField['housingPrice'] === 'low') {
         copyAdObjs = filterPrice(copyAdObjs, 0, lowValue);
 
-      } else if (filteredField['housing_price'] === 'middle') {
+      } else if (filteredField['housingPrice'] === 'middle') {
         copyAdObjs = filterPrice(copyAdObjs, lowValue, highValue);
 
-      } else if (filteredField['housing_price'] === 'high') {
+      } else if (filteredField['housingPrice'] === 'high') {
         copyAdObjs = filterPrice(copyAdObjs, highValue, Infinity);
 
       }
     }
 
-    if (filteredField['housing_room-number'] !== null) {
-      copyAdObjs = filterRooms(copyAdObjs, filteredField['housing_room-number']);
+    if (filteredField['housingRoomNumber'] !== null) {
+      copyAdObjs = filterRooms(copyAdObjs, filteredField['housingRoomNumber']);
     }
 
-    if (filteredField['housing_guests-number'] !== null) {
-      copyAdObjs = filterGuests(copyAdObjs, filteredField['housing_guests-number']);
+    if (filteredField['housingGuestsNumber'] !== null) {
+      copyAdObjs = filterGuests(copyAdObjs, filteredField['housingGuestsNumber']);
     }
     
-    if (featuresChoosen) {
-      
+    if (featuresChoosen) {      
         copyAdObjs = filterFeatures(copyAdObjs, featuresChoosen);
-
     }
+    
     window.util.debounce(function () {
       updateMarkers(copyAdObjs);
     });
