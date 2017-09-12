@@ -2,7 +2,6 @@
 (function () {
   var tokyoFilters = document.querySelector('.tokyo__filters');
   var features = tokyoFilters.querySelectorAll('.feature');
-  var featuresArr = Array.from(features);
   var filters = tokyoFilters.querySelectorAll('.tokyo__filter');
   
   var updateMarkers = function (arrObjs) {
@@ -12,6 +11,7 @@
       if (!it.classList.contains('pin__main'))
         it.parentNode.removeChild(it);
       });
+    window.card.dialogCloseHandler();
     window.map.showMarkers(arrObjs);
   };
   
@@ -53,6 +53,16 @@
       return res;
      };
   
+  var filterFeatures = function (obj, arr) { 
+    arr.forEach(function (item, i) {
+      obj = obj.filter(function (it) {
+        return it.offer.features.indexOf(item) !== -1;
+      });
+    });
+    return obj;
+    
+     };
+  
   var filteredField = {
     'housing_type': null,
     'housing_price': null,
@@ -61,11 +71,21 @@
     'housing_features': null
   }; 
   
-  var filterHandler = function () {
+  var filterHandler = function (evt) {
     var copyAdObjs = window.map.adObjs;
-    var value = this.children[this.selectedIndex].value;
-        
-    setFilteredField(this.id, value);
+    var target = evt.currentTarget;
+    var value = target.value;
+    var featuresChoosen = [];
+    
+    featuresChoosen = [].filter.call(features, function(it) {
+      return it.childNodes[1].checked === true
+    }).map (function (it) {
+      return it.childNodes[1].value;
+    }); 
+    
+    if (target.className !== 'feature') {
+    setFilteredField(target.id, value);
+    }
         
     if (filteredField['housing_type'] !== null) {
       copyAdObjs = filterHousingType(copyAdObjs, filteredField['housing_type']);
@@ -93,7 +113,15 @@
     if (filteredField['housing_guests-number'] !== null) {
       copyAdObjs = filterGuests(copyAdObjs, filteredField['housing_guests-number']);
     }
-    updateMarkers(copyAdObjs);
+    
+    if (featuresChoosen) {
+      
+        copyAdObjs = filterFeatures(copyAdObjs, featuresChoosen);
+
+    }
+    window.util.debounce(function () {
+      updateMarkers(copyAdObjs);
+    });
   };
   
   window.filter ={
@@ -102,7 +130,7 @@
       filters.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });
-        featuresArr.forEach(function (it) {
+        features.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });       
     }

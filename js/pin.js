@@ -40,7 +40,7 @@
   };
 
   var pinClickHandler = function (evt) {
-    if (window.card.isEnterKey(evt) || evt.type === 'click') {
+    if (window.util.isEnterKey(evt) || evt.type === 'click') {
       var target = evt.target;
       while (target !== tokyoPinMap) {
         if (target.className === 'pin') {

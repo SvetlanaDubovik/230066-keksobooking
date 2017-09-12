@@ -43,12 +43,12 @@
       infoStatusCloseHandler(infoStatus);
     });
     infoStatus.addEventListener('keydown', function (evt) {
-      if (window.card.isEnterKey(evt)) {
+      if (window.util.isEnterKey(evt)) {
         infoStatusCloseHandler(infoStatus);
       }
     });
     document.addEventListener('keydown', function (evt) {
-      if (window.card.isEscKey(evt)) {
+      if (window.util.isEscKey(evt)) {
         infoStatusCloseHandler(infoStatus);
       }
     });

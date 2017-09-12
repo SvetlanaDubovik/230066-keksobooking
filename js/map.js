@@ -19,7 +19,9 @@
     window.map.adObjs.forEach(function (it, i) {
       it.id = i;
     });
-    window.map.showMarkers(data);
+    var randomDataArr = window.util.getRandomArray(data, 3);
+
+    window.map.showMarkers(randomDataArr);
     window.filter.filterArray(data);
   };
 
