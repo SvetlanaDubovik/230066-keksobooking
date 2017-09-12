@@ -15,13 +15,12 @@
   };
 
   var successHandler = function (data) {
-    window.map.adObjs = data;
-    window.pin.filteredValues = data;
-    
+    window.map.adObjs = data;    
     window.map.adObjs.forEach(function (it, i) {
       it.id = i;
     });
     window.map.showMarkers(data);
+    window.filter.filterArray(data);
   };
 
   window.backend.load(successHandler, window.backend.errorHandler);
