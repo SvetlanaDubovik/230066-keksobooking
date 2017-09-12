@@ -138,8 +138,7 @@
   };
 
   window.filter = {
-    filterArray: function () {   
-
+    filterArray: function () {
       filters.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });
