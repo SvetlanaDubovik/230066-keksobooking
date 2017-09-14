@@ -138,12 +138,12 @@
   };
 
   window.filter = function () {
-      filters.forEach(function (it) {
-        it.addEventListener('change', filterHandler);
-      });
-      features.forEach(function (it) {
-        it.addEventListener('change', filterHandler);
-      });
+    filters.forEach(function (it) {
+      it.addEventListener('change', filterHandler);
+    });
+    features.forEach(function (it) {
+      it.addEventListener('change', filterHandler);
+    });
   };
 
 })();

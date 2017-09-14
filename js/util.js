@@ -28,7 +28,7 @@
       for (var i = 0; i < k; i++) {
         var randomIndex = window.util.getRandomValue(0, arr.length - 1);
         res.push(copyArr[randomIndex]);
-        copyArr.splice(randomIndex , 1);
+        copyArr.splice(randomIndex, 1);
       }
       return res;
     }
