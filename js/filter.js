@@ -137,15 +137,13 @@
     });
   };
 
-  window.filter = {
-    startFilterData: function () {
+  window.filter = function () {
       filters.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });
       features.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });
-    }
   };
 
 })();

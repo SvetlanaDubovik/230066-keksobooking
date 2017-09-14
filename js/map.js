@@ -22,7 +22,7 @@
     var randomDataArr = window.util.getRandomArray(data, 3);
 
     window.map.showMarkers(randomDataArr);
-    window.filter.startFilterData(data);
+    window.filter(data);
   };
 
   window.backend.load(successHandler, window.backend.errorHandler);
