@@ -2,7 +2,6 @@
 (function () {
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
 
-  //  вывод объектов на карту
   window.map = {
     adObjs: null,
     showMarkers: function (arrObj) {
@@ -22,7 +21,7 @@
     var randomDataArr = window.util.getRandomArray(data, 3);
 
     window.map.showMarkers(randomDataArr);
-    window.filter(data);
+    window.filter();
   };
 
   window.backend.load(successHandler, window.backend.errorHandler);
