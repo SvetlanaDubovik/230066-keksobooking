@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  var LOW_VALUE = 10000;
+  var HIGH_VALUE = 50000;
   var tokyoFilters = document.querySelector('.tokyo__filters');
   var features = tokyoFilters.querySelectorAll('.feature');
   var filters = tokyoFilters.querySelectorAll('.tokyo__filter');
@@ -106,16 +108,14 @@
     }
 
     if (filteredField['housingPrice'] !== null) {
-      var lowValue = 10000;
-      var highValue = 50000;
       if (filteredField['housingPrice'] === 'low') {
-        copyAdObjs = filterPrice(copyAdObjs, 0, lowValue);
+        copyAdObjs = filterPrice(copyAdObjs, 0, LOW_VALUE);
 
       } else if (filteredField['housingPrice'] === 'middle') {
-        copyAdObjs = filterPrice(copyAdObjs, lowValue, highValue);
+        copyAdObjs = filterPrice(copyAdObjs, LOW_VALUE, HIGH_VALUE);
 
       } else if (filteredField['housingPrice'] === 'high') {
-        copyAdObjs = filterPrice(copyAdObjs, highValue, Infinity);
+        copyAdObjs = filterPrice(copyAdObjs, HIGH_VALUE, Infinity);
 
       }
     }
@@ -138,7 +138,7 @@
   };
 
   window.filter = {
-    filterArray: function () {
+    startFilterData: function () {
       filters.forEach(function (it) {
         it.addEventListener('change', filterHandler);
       });

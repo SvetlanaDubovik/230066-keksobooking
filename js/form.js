@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var MIN_PRICE = [0, 1000, 5000, 10000];
+  var MIN_PRICES = [0, 1000, 5000, 10000];
 
   var noticeForm = document.querySelector('.notice__form');
   var timeIn = noticeForm.querySelector('#timein');
@@ -91,20 +91,20 @@
   var isCorrespondTypeToPrice = function (house, cost) {
     switch (house.selectedIndex) {
       case 0:
-        cost.setAttribute('min', MIN_PRICE[1]);
-        checkMinPrice(MIN_PRICE[1]);
+        cost.setAttribute('min', MIN_PRICES[1]);
+        checkMinPrice(MIN_PRICES[1]);
         break;
       case 1:
-        cost.setAttribute('min', MIN_PRICE[0]);
-        checkMinPrice(MIN_PRICE[0]);
+        cost.setAttribute('min', MIN_PRICES[0]);
+        checkMinPrice(MIN_PRICES[0]);
         break;
       case 2:
-        cost.setAttribute('min', MIN_PRICE[2]);
-        checkMinPrice(MIN_PRICE[2]);
+        cost.setAttribute('min', MIN_PRICES[2]);
+        checkMinPrice(MIN_PRICES[2]);
         break;
       case 3:
-        cost.setAttribute('min', MIN_PRICE[3]);
-        checkMinPrice(MIN_PRICE[3]);
+        cost.setAttribute('min', MIN_PRICES[3]);
+        checkMinPrice(MIN_PRICES[3]);
         break;
     }
   };

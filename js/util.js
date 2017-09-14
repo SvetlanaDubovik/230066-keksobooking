@@ -23,11 +23,12 @@
     },
     getRandomArray: function (arr, k) {
       var res = [];
-      while (res.length < k) {
-        var random = window.util.getRandomValue(0, arr.length - 1);
-        if (res.indexOf(arr[random]) === -1) {
-          res.push(arr[random]);
-        }
+      var copyArr = [];
+      copyArr = arr.slice();
+      for (var i = 0; i < k; i++) {
+        var randomIndex = window.util.getRandomValue(0, arr.length - 1);
+        res.push(copyArr[randomIndex]);
+        copyArr.splice(randomIndex , 1);
       }
       return res;
     }
