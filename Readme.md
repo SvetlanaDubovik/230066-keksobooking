@@ -17,6 +17,7 @@ _`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `.travis.yml`, `p
 [travis-image]: https://travis-ci.org/htmlacademy-javascript/230066-keksobooking.svg?branch=master
 [travis-url]: https://travis-ci.org/htmlacademy-javascript/230066-keksobooking
 
+
 ### Техническое задание на Кексобукинг
 Кексобукинг — сервис размещения объявлений о сдаче в аренду недвижимости в центре Токио. Пользователям предоставлется возможность размещать объявления о своей недвижимости или просматривать уже размещенные объявления.
 
